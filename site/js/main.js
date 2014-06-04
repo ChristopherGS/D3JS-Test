@@ -1,54 +1,82 @@
+//Bar Chart Part 3 Tutorial
 
+var margin = {top: 20, right: 30, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
-/*
-$(document).ready(function(){
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
 
+var y = d3.scale.linear()
+    .range([height, 0]);
 
-var x = d3.scale.linear()
-	.domain([0, d3.max(data)])
-	.range([0, 420]);
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
 
-
-d3.select(".chart") //short hand for var chart = d3.select(".chart");
-  .selectAll("div") //initiate the data join by defining the selection to which we will join data.
-	.data(data) //now we join the data (defined previously) to the selection using selection.data
-  .enter().append("div")
-    .style("width", function(d) { return d * 10 + "px"; })
-	.text(function(d) { return d; });
-
-});
-*/
-var width = 420,
-    barHeight = 20;
-
-var x = d3.scale.linear()
-    .range([0, width]);
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
 
 var chart = d3.select(".chart")
-    .attr("width", width);
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("js/data.csv", type, function(error, data) {
-  x.domain([0, d3.max(data, function(d) { return d.value; })]);
+d3.tsv("js/data.tsv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.name; }));
+  y.domain([0, d3.max(data, function(d) { return d.value; })]);
 
-  chart.attr("height", barHeight * data.length);
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
 
-  var bar = chart.selectAll("g")
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart.selectAll(".bar")
       .data(data)
-    .enter().append("g")
-      .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
-
-  bar.append("rect")
-      .attr("width", function(d) { return x(d.value); })
-      .attr("height", barHeight - 1);
-
-  bar.append("text")
-      .attr("x", function(d) { return x(d.value) - 3; })
-      .attr("y", barHeight / 2)
-      .attr("dy", ".35em")
-      .text(function(d) { return d.value; });
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.name); })
+      .attr("y", function(d) { return y(d.value); })
+      .attr("height", function(d) { return height - y(d.value); })
+      .attr("width", x.rangeBand());
 });
 
 function type(d) {
   d.value = +d.value; // coerce to number
   return d;
 }
+
+//======================================================================
+//CIRCLE TUTORIAL
+
+$(document).ready(function() {
+//var svg = d3.select(document.getElementById('sample'))
+  svg.append("circle")
+	  .attr("cx", 100)
+	  .attr("cy", 100)
+	  .attr("r", 50)
+	  .attr("fill", "steelBlue");
+
+});
+
+//Selection tutorial
+
+var selection = d3.select("body");
+
+
+
+//Me messing around
+
+var svg = d3.select(document.getElementById('sample2'))
+
+svg.append("path")
+	.attr("d", "M200,300 L400,50")
+	.attr("stroke", "black")
+	.attr("fill", "none")
+	.attr("stroke-width", 3);
