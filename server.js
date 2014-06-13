@@ -20,6 +20,6 @@ app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 app.use( express.static( path.join( __dirname, 'site') ) );
 
 //Start server
-app.listen(config.port, function() {
-  console.log( 'Express server listening on port %d in %s mode', config.port, app.settings.env );
+app.listen(5000, function() {
+  console.log( 'Express server listening on port %d', 5000 );
 });
