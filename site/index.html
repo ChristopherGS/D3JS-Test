@@ -126,7 +126,8 @@ code span {
 
 
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="/js/vendor/d3.js"></script>
+<script src="/js/vendor/jquery-1.10.2.min.js"></script>
 <script>
 
 var numbers = [4, 5, 18, 23, 42];
@@ -139,13 +140,6 @@ var letters = [
   {name: "E", frequency: .12702}
 ];
 
-var vowels = [
-  {name: "A", frequency: .08167},
-  {name: "E", frequency: .12702},
-  {name: "I", frequency: .06973},
-  {name: "O", frequency: .07507},
-  {name: "U", frequency: .02758}
-];
 
 var matrix = [
   [ 0,  1,  2,  3],
@@ -154,14 +148,51 @@ var matrix = [
   [12, 13, 14, 15]
 ];
 
-function name(d) {
-  return d.name;
+	
+
+function blah(){
+	 console.log('run blah');
+	 
+	 
+	var svg = d3.select("body").append("svg")
+     .attr("width", 10)
+     .attr("height", 10)
+     .style("margin", "1em")
+	 .style("background-color", 'red');
+
+
+
+var vowels = [
+  {name: "A", frequency: .08167},
+  {name: "E", frequency: .12702},
+  {name: "I", frequency: .06973},
+  {name: "O", frequency: .07507},
+  {name: "U", frequency: .02758}
+];
+	  
 }
 
-var margin = {top: 0, right: 40, bottom: 0, left: 40},
-    width = 720,
-    step = 100;
+$(document).on('ready', function() {
 
+	$('#clickme').on('click', blah);
+});
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//DEMO OF SITE
+
+/*	
+	
+	
 function tree(leftRoot, rightRoot, outerHeight) {
   if (arguments.length < 3) outerHeight = rightRoot, rightRoot = null;
 
@@ -770,6 +801,8 @@ function fadeIn(selection, delay) {
       .style("fill-opacity", 1);
 }
 
+*/
+
 </script>
 
 
@@ -779,6 +812,8 @@ function fadeIn(selection, delay) {
 <p>Imagine groups were options/results, with tds as end states</p>
 
 <script>
+
+/*
 
 selectAllAnimation(
   {type: "selection", name: "selection", children: [
@@ -827,6 +862,8 @@ selectAllAnimation(
   d3.selectAll("#select-all-1-1,#select-all-1-2").style("background", null);
 });
 
+
+*/
 </script>
 
 
@@ -834,7 +871,7 @@ selectAllAnimation(
 
 
 <script>
-
+/*
 tree(
   {type: "selection", name: "selection", children: [
     {type: "array", name: "group", children: [
@@ -846,9 +883,10 @@ tree(
   ]},
   24 * 4
 );
-
+*/
 </script>
 
 <p>Imagine these fields were editable. You would click on it, type, then click 'done' and it would be uploaded into the tree. This tree could then be turned into a visual, or turned into
 app-ready data. You could attach images. Some imagination is required, but hopefully you get the idea</p>
 
+<button id="clickme">click me</button>
