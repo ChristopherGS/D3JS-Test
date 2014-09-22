@@ -20,6 +20,9 @@ app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 app.use( express.static( path.join( __dirname, 'site') ) );
 
 //Start server
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT || 5000, function() {
+	console.log('server listening on port %s', config.port);
+
+});
 
 //http://afternoon-depths-8057.herokuapp.com/
